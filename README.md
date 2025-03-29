@@ -1,3 +1,6 @@
+> ### Fork of [jwlawson/actions-setup-cmake](https://github.com/jwlawson/actions-setup-cmake), but with a few changes:
+> - Added support for linux arm64 machines
+
 # Setup cmake for GitHub Actions
 
 Github action to setup the cmake build script generator.
@@ -16,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Setup cmake
-      uses: jwlawson/actions-setup-cmake@v2
+      uses: inhibitor1217/actions-setup-cmake@v2
       with:
         cmake-version: '3.16.x'
     - name: Use cmake

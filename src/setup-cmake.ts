@@ -2,6 +2,7 @@ import * as tc from '@actions/tool-cache';
 import * as core from '@actions/core';
 import { promises as fsPromises } from 'fs';
 import * as path from 'path';
+import * as v from './version';
 import * as vi from './version-info';
 
 const PACKAGE_NAME: string = 'cmake';
@@ -11,7 +12,12 @@ function getURL(
   arch_candidates: Array<string>
 ): string {
   const assets_for_platform: vi.AssetInfo[] = version.assets
-    .filter((a) => a.platform === process.platform && a.filetype === 'archive')
+    .filter(
+      (a) =>
+        a.platform === process.platform &&
+        a.arch === v.extractArchFrom(process.arch) &&
+        a.filetype === 'archive'
+    )
     .sort();
   // The arch_candidates provides an ordered set of architectures to try, and
   // the first matching asset is used. This will typically be 'x86_64' first,
@@ -27,7 +33,7 @@ function getURL(
   if (matching_assets == undefined) {
     // If there are no x86_64 or x86 packages then give up.
     throw new Error(
-      `Could not find ${process.platform} asset for cmake version ${version.name}`
+      `Could not find ${process.platform}/${process.arch} asset for cmake version ${version.name}`
     );
   }
   core.debug(
