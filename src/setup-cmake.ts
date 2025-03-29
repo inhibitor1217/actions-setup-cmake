@@ -15,7 +15,8 @@ function getURL(
     .filter(
       (a) =>
         a.platform === process.platform &&
-        a.arch === v.extractArchFrom(process.arch) &&
+        (a.arch === 'universal' ||
+          a.arch === v.extractArchFrom(process.arch)) &&
         a.filetype === 'archive'
     )
     .sort();

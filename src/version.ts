@@ -62,7 +62,7 @@ export function extractArchFrom(filename: string): string {
   } else if (filename.match(/x64/)) {
     return 'x86_64';
   } else if (filename.match(/universal/)) {
-    return 'x86_64';
+    return 'universal';
   } else if (filename.match(/x86/)) {
     return 'x86';
   } else if (filename.match(/i386/)) {
