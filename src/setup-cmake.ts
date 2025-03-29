@@ -11,11 +11,6 @@ function getURL(
   version: vi.VersionInfo,
   arch_candidates: Array<string>
 ): string {
-  core.info(`Searching for assets for ${process.platform}/${process.arch}`);
-  core.info(`Candidates: ${JSON.stringify(version.assets, null, 2)}`);
-  core.info(`platform: ${process.platform}`);
-  core.info(`arch: ${v.extractArchFrom(process.arch)}`);
-
   const assets_for_platform: vi.AssetInfo[] = version.assets
     .filter(
       (a) =>
@@ -30,7 +25,9 @@ function getURL(
   // with 'x86' checked if nothing was found.
   let matching_assets = undefined;
   for (let arch of arch_candidates) {
-    const arch_assets = assets_for_platform.filter((a) => a.arch === arch);
+    const arch_assets = assets_for_platform.filter(
+      (a) => a.arch === 'universal' || a.arch === arch
+    );
     if (arch_assets.length != 0) {
       matching_assets = arch_assets;
       break;
