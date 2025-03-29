@@ -11,6 +11,11 @@ function getURL(
   version: vi.VersionInfo,
   arch_candidates: Array<string>
 ): string {
+  core.info(`Searching for assets for ${process.platform}/${process.arch}`);
+  core.info(`Candidates: ${JSON.stringify(version.assets, null, 2)}`);
+  core.info(`platform: ${process.platform}`);
+  core.info(`arch: ${v.extractArchFrom(process.arch)}`);
+
   const assets_for_platform: vi.AssetInfo[] = version.assets
     .filter(
       (a) =>
